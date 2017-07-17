@@ -16,8 +16,10 @@ import com.hmmelton.workouttracker.fragments.WorkoutsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 import butterknife.BindColor;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -31,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
     ViewPager mViewPager;
     @BindView(R.id.main_tab_layout)
     TabLayout mTabLayout;
+
+    // Strings
+    @BindString(R.string.history)
+    String mHistory;
+    @BindString(R.string.workouts)
+    String mWorkouts;
+    @BindString(R.string.exercises)
+    String mExercises;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +61,10 @@ public class MainActivity extends AppCompatActivity {
         // Use in conjunction with ViewPager
         mTabLayout.setupWithViewPager(mViewPager);
         // Add tab titles
-        if (mTabLayout.getTabCount() == 3) {
-            mTabLayout.getTabAt(0).setText("Tab 1");
-            mTabLayout.getTabAt(1).setText("Tab 2");
-            mTabLayout.getTabAt(2).setText("Tab 3");
+        if (mTabLayout.getTabCount() >= 3) {
+            mTabLayout.getTabAt(0).setText(mHistory);
+            mTabLayout.getTabAt(1).setText(mWorkouts);
+            mTabLayout.getTabAt(2).setText(mExercises);
         }
     }
 
