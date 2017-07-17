@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private void setUpViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
+
     }
 
     // Adapter class for view pager tabs
