@@ -8,6 +8,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.hmmelton.workouttracker.fragments.ExercisesFragment;
+import com.hmmelton.workouttracker.fragments.HistoryFragment;
+import com.hmmelton.workouttracker.fragments.WorkoutsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Set up Butter Knife
         ButterKnife.bind(this);
+        // Add fragments to ViewPager
+        setUpViewPager();
         // Create and display tabs
         setUpTabs();
     }
@@ -41,25 +48,32 @@ public class MainActivity extends AppCompatActivity {
      * This method creates tabs and adds them to the layout's TabLayout.
      */
     private void setUpTabs() {
-        // Create and add tabs
-        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 1"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 2"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 3"));
         // Use in conjunction with ViewPager
         mTabLayout.setupWithViewPager(mViewPager);
+        // Add tab titles
+        if (mTabLayout.getTabCount() == 3) {
+            mTabLayout.getTabAt(0).setText("Tab 1");
+            mTabLayout.getTabAt(1).setText("Tab 2");
+            mTabLayout.getTabAt(2).setText("Tab 3");
+        }
     }
 
     /**
      * This method sets up the layout's ViewPager
      */
     private void setUpViewPager() {
+        // Instantiate adapter
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-
+        // Add fragments to adapter
+        adapter.addFragment(HistoryFragment.newInstance());
+        adapter.addFragment(WorkoutsFragment.newInstance());
+        adapter.addFragment(ExercisesFragment.newInstance());
+        mViewPager.setAdapter(adapter);
     }
 
     // Adapter class for view pager tabs
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
 
         ViewPagerAdapter(FragmentManager manager) {
