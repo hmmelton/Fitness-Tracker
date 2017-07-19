@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.hmmelton.workouttracker.data.ExerciseDbHelper;
 import com.hmmelton.workouttracker.fragments.ExercisesFragment;
 import com.hmmelton.workouttracker.fragments.HistoryFragment;
 import com.hmmelton.workouttracker.fragments.WorkoutsFragment;
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         setUpViewPager();
         // Create and display tabs
         setUpTabs();
+
+        ExerciseDbHelper helper = new ExerciseDbHelper(this);
     }
 
     /**

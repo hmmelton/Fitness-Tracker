@@ -7,8 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.hmmelton.workouttracker.R;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +20,11 @@ import com.hmmelton.workouttracker.R;
  * create an instance of this fragment.
  */
 public class HistoryFragment extends Fragment {
+
+    @OnClick(R.id.history_fab)
+    void onAddClick() {
+        Toast.makeText(getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
+    }
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -39,6 +48,10 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false);
+        View view = inflater.inflate(R.layout.fragment_history, container, false);
+        // Set up Butter Knife
+        ButterKnife.bind(this, view);
+
+        return view;
     }
 }
