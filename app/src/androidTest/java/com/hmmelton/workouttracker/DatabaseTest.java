@@ -10,7 +10,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.hmmelton.workouttracker.data.ExerciseDbHelper;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -28,9 +28,9 @@ import static com.hmmelton.workouttracker.data.ExerciseContract.*;
 public class DatabaseTest {
 
     // Context used to create ExerciseDbHelper and perform operations
-    private static final Context mContext = InstrumentationRegistry.getTargetContext();
+    private final Context mContext = InstrumentationRegistry.getTargetContext();
     // Class reference to help load the constructor on runtime
-    private static final Class mDbHelperClass = ExerciseDbHelper.class;
+    private final Class mDbHelperClass = ExerciseDbHelper.class;
     // DB helper used to fetch writable database instances
     private static SQLiteOpenHelper mDbHelper;
 
@@ -39,11 +39,11 @@ public class DatabaseTest {
     private final int WORKOUT_ID = 1;
     private final int HISTORY_ID = 1;
 
-    @BeforeClass
+    @Before
     /**
      * @throws Exception in case the constructor hasn't been implemented yet
      */
-    public static void setUp() throws Exception {
+    public void setUp() throws Exception {
         deleteTheDatabase();
         mDbHelper = (SQLiteOpenHelper) mDbHelperClass.getConstructor(Context.class)
                 .newInstance(mContext);
@@ -352,7 +352,7 @@ public class DatabaseTest {
     /**
      * Deletes the entire database.
      */
-    static void deleteTheDatabase(){
+    void deleteTheDatabase(){
         try {
             /* Use reflection to get the database name from the db helper class */
             Field f = mDbHelperClass.getDeclaredField("DATABASE_NAME");
