@@ -29,7 +29,7 @@ public class ExerciseDbHelper extends SQLiteOpenHelper {
                 ExerciseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 ExerciseEntry.COLUMN_EXERCISE_NAME + " TEXT NOT NULL, " +
                 ExerciseEntry.COLUMN_SET_TYPE + " TEXT NOT NULL, " +
-                ExerciseEntry.COLUMN_REP_COUNT + " TEXT NOT NULL, " +
+                ExerciseEntry.COLUMN_REP_COUNT + " INTEGER NOT NULL, " +
                 ExerciseEntry.COLUMN_REP_INTENSITY + " REAL NOT NULL, " +
                 ExerciseEntry.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                 "); ";
@@ -55,8 +55,11 @@ public class ExerciseDbHelper extends SQLiteOpenHelper {
                 ExerciseWorkoutJunctionEntry.COLUMN_EXERCISE_ID + " INTEGER NOT NULL, " +
                 ExerciseWorkoutJunctionEntry.COLUMN_WORKOUT_ID + " INTEGER NOT NULL, " +
                 ExerciseWorkoutJunctionEntry.COLUMN_TIMESTAMP +
-                " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
-                "); ";
+                " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                "FOREIGN KEY (" + ExerciseWorkoutJunctionEntry.COLUMN_EXERCISE_ID +
+                ") REFERENCES " + ExerciseEntry.TABLE_NAME + "(" + ExerciseEntry._ID + "), " +
+                "FOREIGN KEY (" + ExerciseWorkoutJunctionEntry.COLUMN_WORKOUT_ID +
+                ") REFERENCES " + WorkoutEntry.TABLE_NAME + "(" + WorkoutEntry._ID + "));";
 
         // String to create History/Exercise junction table
         final String SQL_CREATE_HISTORY_EXERCISE_JUNCTION_TABLE = "CREATE TABLE " +
@@ -65,8 +68,11 @@ public class ExerciseDbHelper extends SQLiteOpenHelper {
                 HistoryExerciseJunctionEntry.COLUMN_HISTORY_ID + " INTEGER NOT NULL, " +
                 HistoryExerciseJunctionEntry.COLUMN_EXERCISE_ID + " INTEGER NOT NULL, " +
                 HistoryExerciseJunctionEntry.COLUMN_TIMESTAMP +
-                " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
-                "); ";
+                " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                "FOREIGN KEY (" + HistoryExerciseJunctionEntry.COLUMN_HISTORY_ID +
+                ") REFERENCES " + HistoryEntry.TABLE_NAME + "(" + HistoryEntry._ID + "), " +
+                "FOREIGN KEY (" + HistoryExerciseJunctionEntry.COLUMN_EXERCISE_ID +
+                ") REFERENCES " + ExerciseEntry.TABLE_NAME + "(" + ExerciseEntry._ID + "));";
 
         // Execute SQL commands
         db.execSQL(SQL_CREATE_EXERCISE_TABLE);
