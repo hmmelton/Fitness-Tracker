@@ -1,10 +1,15 @@
 package com.hmmelton.workouttracker;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
+
+import com.hmmelton.workouttracker.data.DatabaseUtil;
+import com.hmmelton.workouttracker.data.ExerciseDbHelper;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -15,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressWarnings("unused")
     private final String TAG = getClass().getSimpleName();
+    private ExerciseListAdapter mAdapter;
+    private SQLiteDatabase mDatabase;
 
     // Views
     @BindView(R.id.main_tab_layout)
@@ -60,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Create and display tabs
         setUpTabs();
+        // Get database
+        getDatabase();
+        // Set up RecyclerView
+        setUpRecyclerView();
     }
 
     /**
@@ -74,17 +85,8 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                // TODO: fill this in
-                switch (tab.getPosition()) {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    default:
-                        break;
-                }
+                // Update the adapter's data
+                mAdapter.setDataType(mTabLayout.getSelectedTabPosition());
             }
 
             @Override
@@ -93,5 +95,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
+    }
+
+    /**
+     * This method sets up {@link #mRecyclerView}
+     */
+    private void setUpRecyclerView() {
+        // Set layout manager
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // Create and set adapter
+        mAdapter = new ExerciseListAdapter(DatabaseUtil.getAllHistory(mDatabase), this,
+                mTabLayout.getSelectedTabPosition());
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    /**
+     * This method prepares the database for CRUD requests.
+     */
+    private void getDatabase() {
+        ExerciseDbHelper dbHelper = new ExerciseDbHelper(this);
+        mDatabase = dbHelper.getWritableDatabase();
     }
 }
