@@ -27,7 +27,7 @@ public class DatabaseUtil {
                                          double repIntensity, SQLiteDatabase database) {
         // Add all key value pairs to ContentValues object
         ContentValues cv = new ContentValues();
-        cv.put(ExerciseContract.ExerciseEntry.COLUMN_EXERCISE_NAME, exerciseName);
+        cv.put(ExerciseContract.ExerciseEntry.COLUMN_NAME, exerciseName);
         cv.put(ExerciseContract.ExerciseEntry.COLUMN_SET_TYPE, setType);
         cv.put(ExerciseContract.ExerciseEntry.COLUMN_REP_COUNT, repCount);
         cv.put(ExerciseContract.ExerciseEntry.COLUMN_REP_INTENSITY, repIntensity);
@@ -44,7 +44,7 @@ public class DatabaseUtil {
     public static boolean addNewWorkout(String workoutName, SQLiteDatabase database) {
         // Add key/value pair to ContentValues
         ContentValues cv = new ContentValues();
-        cv.put(ExerciseContract.WorkoutEntry.COLUMN_WORKOUT_NAME, workoutName);
+        cv.put(ExerciseContract.WorkoutEntry.COLUMN_NAME, workoutName);
         // Insert into database and return whether or not it was successful
         return (database.insert(ExerciseContract.WorkoutEntry.TABLE_NAME, null, cv) > 0);
     }
@@ -58,7 +58,7 @@ public class DatabaseUtil {
     public static boolean addNewHistory(String date, SQLiteDatabase database) {
         // Add key/value pair to ContentValues
         ContentValues cv = new ContentValues();
-        cv.put(ExerciseContract.HistoryEntry.COLUMN_DATE, date);
+        cv.put(ExerciseContract.HistoryEntry.COLUMN_NAME, date);
         // Insert into database and return whether or not it was successful
         return (database.insert(ExerciseContract.HistoryEntry.TABLE_NAME, null, cv) > 0);
     }

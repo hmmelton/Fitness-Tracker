@@ -27,7 +27,7 @@ public class ExerciseDbHelper extends SQLiteOpenHelper {
         // String to create Exercise table
         final String SQL_CREATE_EXERCISE_TABLE = "CREATE TABLE " + ExerciseEntry.TABLE_NAME + " (" +
                 ExerciseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                ExerciseEntry.COLUMN_EXERCISE_NAME + " TEXT NOT NULL, " +
+                ExerciseEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 ExerciseEntry.COLUMN_SET_TYPE + " TEXT NOT NULL, " +
                 ExerciseEntry.COLUMN_REP_COUNT + " INTEGER NOT NULL, " +
                 ExerciseEntry.COLUMN_REP_INTENSITY + " REAL NOT NULL, " +
@@ -37,14 +37,14 @@ public class ExerciseDbHelper extends SQLiteOpenHelper {
         // String to create Workout table
         final String SQL_CREATE_WORKOUT_TABLE = "CREATE TABLE " + WorkoutEntry.TABLE_NAME + " (" +
                 WorkoutEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                WorkoutEntry.COLUMN_WORKOUT_NAME + " TEXT NOT NULL, " +
+                WorkoutEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 WorkoutEntry.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                 "); ";
 
         // String to create History table
         final String SQL_CREATE_HISTORY_TABLE = "CREATE TABLE " + HistoryEntry.TABLE_NAME + " (" +
                 HistoryEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                HistoryEntry.COLUMN_DATE + " TEXT NOT NULL, " +
+                HistoryEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 HistoryEntry.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                 "); ";
 

@@ -1,28 +1,15 @@
 package com.hmmelton.workouttracker;
 
-import android.os.Handler;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
-import com.hmmelton.workouttracker.data.ExerciseDbHelper;
-import com.hmmelton.workouttracker.fragments.ExercisesFragment;
-import com.hmmelton.workouttracker.fragments.HistoryFragment;
-import com.hmmelton.workouttracker.fragments.WorkoutsFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringJoiner;
-
-import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,10 +17,10 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
 
     // Views
-    @BindView(R.id.main_view_pager)
-    ViewPager mViewPager;
     @BindView(R.id.main_tab_layout)
     TabLayout mTabLayout;
+    @BindView(R.id.main_recycler_view)
+    RecyclerView mRecyclerView;
 
     // Strings
     @BindString(R.string.history)
@@ -42,6 +29,28 @@ public class MainActivity extends AppCompatActivity {
     String mWorkouts;
     @BindString(R.string.exercises)
     String mExercises;
+    @BindString(R.string.unexpected_error)
+    String mUnexpectedError;
+
+    // OnClick listeners
+    @OnClick(R.id.main_fab)
+    void onFabClick() {
+        int currentTab = mTabLayout.getSelectedTabPosition();
+        // Action depends on tab position, so check what it is
+        // TODO: fill this in
+        switch (currentTab) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+                // Let user know there has been an unexpected error
+                Toast.makeText(MainActivity.this, mUnexpectedError, Toast.LENGTH_LONG).show();
+                break;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,62 +58,40 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Set up Butter Knife
         ButterKnife.bind(this);
-        // Add fragments to ViewPager
-        setUpViewPager();
         // Create and display tabs
         setUpTabs();
-
-        ExerciseDbHelper helper = new ExerciseDbHelper(this);
     }
 
     /**
      * This method creates tabs and adds them to the layout's TabLayout.
      */
     private void setUpTabs() {
-        // Use in conjunction with ViewPager
-        mTabLayout.setupWithViewPager(mViewPager);
-        // Add tab titles
-        if (mTabLayout.getTabCount() >= 3) {
-            mTabLayout.getTabAt(0).setText(mHistory);
-            mTabLayout.getTabAt(1).setText(mWorkouts);
-            mTabLayout.getTabAt(2).setText(mExercises);
-        }
-    }
+        // Add tabs to tab layout
+        mTabLayout.addTab(mTabLayout.newTab().setText(mHistory));
+        mTabLayout.addTab(mTabLayout.newTab().setText(mWorkouts));
+        mTabLayout.addTab(mTabLayout.newTab().setText(mExercises));
+        // Add listener for tab selection
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // TODO: fill this in
+                switch (tab.getPosition()) {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        break;
+                }
+            }
 
-    /**
-     * This method sets up the layout's ViewPager
-     */
-    private void setUpViewPager() {
-        // Instantiate adapter
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
 
-        // Add fragments to adapter
-        adapter.addFragment(HistoryFragment.newInstance());
-        adapter.addFragment(WorkoutsFragment.newInstance());
-        adapter.addFragment(ExercisesFragment.newInstance());
-        mViewPager.setAdapter(adapter);
-    }
-
-    // Adapter class for view pager tabs
-    private class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-
-        ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        void addFragment(Fragment fragment) {
-            mFragmentList.add(fragment);
-        }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
     }
 }

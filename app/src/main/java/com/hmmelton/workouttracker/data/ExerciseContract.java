@@ -16,7 +16,7 @@ public final class ExerciseContract {
      */
     public static final class ExerciseEntry implements BaseColumns {
         public static final String TABLE_NAME = "exercises";
-        public static final String COLUMN_EXERCISE_NAME = "exerciseName";
+        public static final String COLUMN_NAME = "exerciseName";
         public static final String COLUMN_SET_TYPE = "setType";
         public static final String COLUMN_REP_COUNT = "repCount";
         public static final String COLUMN_REP_INTENSITY = "repIntensity";
@@ -28,7 +28,7 @@ public final class ExerciseContract {
      */
     public static final class WorkoutEntry implements BaseColumns {
         public static final String TABLE_NAME = "workouts";
-        public static final String COLUMN_WORKOUT_NAME = "workoutName";
+        public static final String COLUMN_NAME = "workoutName";
         public static final String COLUMN_TIMESTAMP = "timestamp";
     }
 
@@ -37,7 +37,7 @@ public final class ExerciseContract {
      */
     public static final class HistoryEntry implements BaseColumns {
         public static final String TABLE_NAME = "history";
-        public static final String COLUMN_DATE = "date";
+        public static final String COLUMN_NAME = "date";
         public static final String COLUMN_TIMESTAMP = "timestamp";
     }
 

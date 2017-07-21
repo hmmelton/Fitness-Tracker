@@ -78,7 +78,7 @@ public class DatabaseTest {
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         ContentValues testValues = new ContentValues();
-        testValues.put(ExerciseEntry.COLUMN_EXERCISE_NAME, "Cable Crunches");
+        testValues.put(ExerciseEntry.COLUMN_NAME, "Cable Crunches");
         testValues.put(ExerciseEntry.COLUMN_SET_TYPE, "lbs");
         testValues.put(ExerciseEntry.COLUMN_REP_COUNT, 10);
         testValues.put(ExerciseEntry.COLUMN_REP_INTENSITY, 87.5);
@@ -132,7 +132,7 @@ public class DatabaseTest {
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         ContentValues testValues = new ContentValues();
-        testValues.put(WorkoutEntry.COLUMN_WORKOUT_NAME, "Abs Routine");
+        testValues.put(WorkoutEntry.COLUMN_NAME, "Abs Routine");
 
         /* Insert ContentValues into database and get first row ID back */
         long firstRowId = database.insert(
@@ -183,7 +183,7 @@ public class DatabaseTest {
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         ContentValues testValues = new ContentValues();
-        testValues.put(HistoryEntry.COLUMN_DATE, "19 July 2017");
+        testValues.put(HistoryEntry.COLUMN_NAME, "19 July 2017");
 
         /* Insert ContentValues into database and get first row ID back */
         long firstRowId = database.insert(
