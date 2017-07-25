@@ -6,6 +6,8 @@
     <string name="workouts">Workouts</string>
     <string name="exercises">Exercises</string>
 
+    <string name="empty_list_text">Nothing to display</string>
+
     <!-- Error messages -->
     <string name="unexpected_error">Unexpected Error</string>
 </resources>

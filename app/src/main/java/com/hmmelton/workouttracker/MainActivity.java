@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hmmelton.workouttracker.data.DatabaseUtil;
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     TabLayout mTabLayout;
     @BindView(R.id.main_recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.empty_text_view)
+    TextView mEmptyTextView;
 
     // Strings
     @BindString(R.string.history)
@@ -87,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 // Update the adapter's data
                 mAdapter.setDataType(mTabLayout.getSelectedTabPosition());
+                checkAdapterCount();
             }
 
             @Override
@@ -107,6 +112,18 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new ExerciseListAdapter(DatabaseUtil.getAllHistory(mDatabase), this,
                 mTabLayout.getSelectedTabPosition());
         mRecyclerView.setAdapter(mAdapter);
+
+        checkAdapterCount();
+    }
+
+    /**
+     * This method hides the screen's 'nothing to display' TextView, if the RecyclerView's adapter
+     * contains items.
+     */
+    private void checkAdapterCount() {
+        if (mAdapter.getItemCount() > 0) {
+            mEmptyTextView.setVisibility(View.GONE);
+        }
     }
 
     /**
