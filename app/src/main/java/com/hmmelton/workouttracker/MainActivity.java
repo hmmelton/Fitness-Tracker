@@ -1,7 +1,5 @@
 package com.hmmelton.workouttracker;
 
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,17 +7,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.hmmelton.workouttracker.data.DatabaseUtil;
-import com.hmmelton.workouttracker.data.ExerciseDbHelper;
 import com.hmmelton.workouttracker.fragments.ExercisesFragment;
 import com.hmmelton.workouttracker.fragments.HistoryFragment;
-import com.hmmelton.workouttracker.fragments.WorkoutsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +17,6 @@ import java.util.List;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
     // Strings
     @BindString(R.string.history)
     String mHistory;
-    @BindString(R.string.workouts)
-    String mWorkouts;
     @BindString(R.string.exercises)
     String mExercises;
     @BindString(R.string.unexpected_error)
@@ -56,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Set up Butter Knife
         ButterKnife.bind(this);
-        // Create and display tabs
+        // Set ViewPager fragments
+        setUpViewPager();
+        // Set tab titles
         setUpTabs();
     }
 
@@ -67,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         // Add fragments to the adapter
         adapter.addFragment(HistoryFragment.newInstance());
-        adapter.addFragment(WorkoutsFragment.newInstance());
         adapter.addFragment(ExercisesFragment.newInstance());
+        mViewPager.setAdapter(adapter);
     }
 
     /**
@@ -76,7 +65,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setUpTabs() {
         mTabLayout.setupWithViewPager(mViewPager);
-
+        if (mTabLayout.getTabCount() == 2) {
+            mTabLayout.getTabAt(0).setText(mHistory);
+            mTabLayout.getTabAt(1).setText(mExercises);
+        }
     }
 
     // Adapter class for view pager tabs
