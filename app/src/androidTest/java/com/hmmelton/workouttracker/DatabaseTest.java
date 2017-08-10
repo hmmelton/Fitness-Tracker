@@ -78,14 +78,14 @@ public class DatabaseTest {
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         ContentValues testValues = new ContentValues();
-        testValues.put(ExerciseEntry.COLUMN_NAME, "Cable Crunches");
-        testValues.put(ExerciseEntry.COLUMN_SET_TYPE, "lbs");
-        testValues.put(ExerciseEntry.COLUMN_REP_COUNT, 10);
-        testValues.put(ExerciseEntry.COLUMN_REP_INTENSITY, 87.5);
+        testValues.put(ExerciseEntry.Companion.getCOLUMN_NAME(), "Cable Crunches");
+        testValues.put(ExerciseEntry.Companion.getCOLUMN_SET_TYPE(), "lbs");
+        testValues.put(ExerciseEntry.Companion.getCOLUMN_REP_COUNT(), 10);
+        testValues.put(ExerciseEntry.Companion.getCOLUMN_REP_INTENSITY(), 87.5);
 
         /* Insert ContentValues into database and get first row ID back */
         long firstRowId = database.insert(
-                ExerciseEntry.TABLE_NAME,
+                ExerciseEntry.Companion.getTABLE_NAME(),
                 null,
                 testValues);
 
@@ -98,7 +98,7 @@ public class DatabaseTest {
          */
         Cursor wCursor = database.query(
                 /* Name of table on which to perform the query */
-                ExerciseEntry.TABLE_NAME,
+                ExerciseEntry.Companion.getTABLE_NAME(),
                 /* Columns; leaving this null returns every column in the table */
                 null,
                 /* Optional specification for columns in the "where" clause above */
@@ -132,11 +132,11 @@ public class DatabaseTest {
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         ContentValues testValues = new ContentValues();
-        testValues.put(WorkoutEntry.COLUMN_NAME, "Abs Routine");
+        testValues.put(WorkoutEntry.Companion.getCOLUMN_NAME(), "Abs Routine");
 
         /* Insert ContentValues into database and get first row ID back */
         long firstRowId = database.insert(
-                WorkoutEntry.TABLE_NAME,
+                WorkoutEntry.Companion.getTABLE_NAME(),
                 null,
                 testValues);
 
@@ -149,7 +149,7 @@ public class DatabaseTest {
          */
         Cursor wCursor = database.query(
                 /* Name of table on which to perform the query */
-                WorkoutEntry.TABLE_NAME,
+                WorkoutEntry.Companion.getTABLE_NAME(),
                 /* Columns; leaving this null returns every column in the table */
                 null,
                 /* Optional specification for columns in the "where" clause above */
@@ -183,11 +183,11 @@ public class DatabaseTest {
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         ContentValues testValues = new ContentValues();
-        testValues.put(HistoryEntry.COLUMN_NAME, "19 July 2017");
+        testValues.put(HistoryEntry.Companion.getCOLUMN_NAME(), "19 July 2017");
 
         /* Insert ContentValues into database and get first row ID back */
         long firstRowId = database.insert(
-                HistoryEntry.TABLE_NAME,
+                HistoryEntry.Companion.getTABLE_NAME(),
                 null,
                 testValues);
 
@@ -200,7 +200,7 @@ public class DatabaseTest {
          */
         Cursor wCursor = database.query(
                 /* Name of table on which to perform the query */
-                HistoryEntry.TABLE_NAME,
+                HistoryEntry.Companion.getTABLE_NAME(),
                 /* Columns; leaving this null returns every column in the table */
                 null,
                 /* Optional specification for columns in the "where" clause above */
@@ -238,12 +238,12 @@ public class DatabaseTest {
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         ContentValues testValues = new ContentValues();
-        testValues.put(ExerciseWorkoutJunctionEntry.COLUMN_EXERCISE_ID, EXERCISE_ID);
-        testValues.put(ExerciseWorkoutJunctionEntry.COLUMN_WORKOUT_ID, WORKOUT_ID);
+        testValues.put(EWJuncEntry.Companion.getCOLUMN_EXERCISE_ID(), EXERCISE_ID);
+        testValues.put(EWJuncEntry.Companion.getCOLUMN_WORKOUT_ID(), WORKOUT_ID);
 
         /* Insert ContentValues into database and get first row ID back */
         long firstRowId = database.insert(
-                ExerciseWorkoutJunctionEntry.TABLE_NAME,
+                EWJuncEntry.Companion.getTABLE_NAME(),
                 null,
                 testValues);
 
@@ -256,7 +256,7 @@ public class DatabaseTest {
          */
         Cursor wCursor = database.query(
                 /* Name of table on which to perform the query */
-                ExerciseWorkoutJunctionEntry.TABLE_NAME,
+                EWJuncEntry.Companion.getTABLE_NAME(),
                 /* Columns; leaving this null returns every column in the table */
                 null,
                 /* Optional specification for columns in the "where" clause above */
@@ -301,12 +301,12 @@ public class DatabaseTest {
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         ContentValues testValues = new ContentValues();
-        testValues.put(HistoryExerciseJunctionEntry.COLUMN_EXERCISE_ID, EXERCISE_ID);
-        testValues.put(HistoryExerciseJunctionEntry.COLUMN_HISTORY_ID, HISTORY_ID);
+        testValues.put(HEJuncEntry.Companion.getCOLUMN_EXERCISE_ID(), EXERCISE_ID);
+        testValues.put(HEJuncEntry.Companion.getCOLUMN_HISTORY_ID(), HISTORY_ID);
 
         /* Insert ContentValues into database and get first row ID back */
         long firstRowId = database.insert(
-                HistoryExerciseJunctionEntry.TABLE_NAME,
+                HEJuncEntry.Companion.getTABLE_NAME(),
                 null,
                 testValues);
 
@@ -319,7 +319,7 @@ public class DatabaseTest {
          */
         Cursor wCursor = database.query(
                 /* Name of table on which to perform the query */
-                HistoryExerciseJunctionEntry.TABLE_NAME,
+                HEJuncEntry.Companion.getTABLE_NAME(),
                 /* Columns; leaving this null returns every column in the table */
                 null,
                 /* Optional specification for columns in the "where" clause above */
