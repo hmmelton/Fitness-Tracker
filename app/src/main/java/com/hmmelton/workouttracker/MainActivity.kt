@@ -33,8 +33,6 @@ class MainActivity : AppCompatActivity() {
     internal var mHistory: String? = null
     @BindString(R.string.exercises)
     internal var mExercises: String? = null
-    @BindString(R.string.unexpected_error)
-    internal var mUnexpectedError: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
