@@ -3,6 +3,7 @@ package com.hmmelton.workouttracker.data
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.provider.BaseColumns
 
 /**
  * Created by harrisonmelton on 7/20/17.
@@ -11,8 +12,6 @@ import android.database.sqlite.SQLiteDatabase
  */
 
 object DatabaseUtil {
-
-    // region Create Functions
 
     /**
      * This method adds a new exercise to the database.
@@ -42,40 +41,31 @@ object DatabaseUtil {
     }
 
     /**
-     * This method adds a new workout to the database.
-     * @param workoutName name of workout to be added
+     * This method returns the exercise tied to the specific ID passed
+     * @param exerciseId ID of exercise to be queried
      * *
-     * @param database SQLiteDatabase instance into which the workout is inserted
+     * @param database SQLiteDatabase instance on which to perform the query
      * *
-     * @return boolean representing whether or not the insertion was successful
+     * @return Cursor containing retrieved exercise data
      */
-    fun addNewWorkout(workoutName: String, database: SQLiteDatabase): Boolean {
-        // Add key/value pair to ContentValues
-        val cv = ContentValues()
-        cv.put(ExerciseContract.WorkoutEntry.COLUMN_NAME, workoutName)
-        // Insert into database and return whether or not it was successful
-        return database.insert(ExerciseContract.WorkoutEntry.TABLE_NAME, null, cv) > 0
+    fun getExerciseById(exerciseId: Int, database: SQLiteDatabase): Cursor {
+        // WHERE clause for IDs
+        val whereClause = "${BaseColumns._ID}=?"
+        // Specific arg is going to be passed ID
+        val whereArgs = arrayOf("$exerciseId")
+
+        // Query and return Cursor of retrieved data
+        return database.query(
+                ExerciseContract.ExerciseEntry.TABLE_NAME,
+                null,
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                null,
+                "LIMIT 1" // Each entry should have its own ID, so only 1 entry should be returned
+        )
     }
-
-    /**
-     * This method adds a new workout history to the database.
-     * @param date date that workout took place
-     * *
-     * @param database SQLiteDatabase instance into which the workout is inserted
-     * *
-     * @return boolean representing whether or not the insertion was successful
-     */
-    fun addNewHistory(date: String, database: SQLiteDatabase): Boolean {
-        // Add key/value pair to ContentValues
-        val cv = ContentValues()
-        cv.put(ExerciseContract.HistoryEntry.COLUMN_NAME, date)
-        // Insert into database and return whether or not it was successful
-        return database.insert(ExerciseContract.HistoryEntry.TABLE_NAME, null, cv) > 0
-    }
-
-    // endregion
-
-    // region Read Functions
 
     /**
      * This method returns all the exercises in the database.
@@ -90,35 +80,5 @@ object DatabaseUtil {
                 ExerciseContract.ExerciseEntry.COLUMN_TIMESTAMP
         )
     }
-
-    /**
-     * This method returns all the workouts in the database.
-     * @param database SQLiteDatabase instance on which the query is performed
-     * *
-     * @return Cursor containing all workouts in database
-     */
-    fun getAllWorkouts(database: SQLiteDatabase): Cursor {
-        return database.query(
-                ExerciseContract.WorkoutEntry.TABLE_NAME, null, null, null, null, null,
-                // Sort the returned values chronologically
-                ExerciseContract.WorkoutEntry.COLUMN_TIMESTAMP
-        )
-    }
-
-    /**
-     * This method returns all the history items in the database.
-     * @param database SQLiteDatabase instance on which the query is performed
-     * *
-     * @return Cursor containing all history items in database
-     */
-    fun getAllHistory(database: SQLiteDatabase): Cursor {
-        return database.query(
-                ExerciseContract.HistoryEntry.TABLE_NAME, null, null, null, null, null,
-                // Sort the returned values chronologically
-                ExerciseContract.HistoryEntry.COLUMN_TIMESTAMP
-        )
-    }
-
-    // endregion
 
 }
